@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bacaan — Sungai Ilmu</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Karla:wght@400;500;700&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+
+:root{
+  --bg:#F1F2EA;
+  --paper:#FAFAF4;
+  --ink:#1E2A26;
+  --ink-soft:#4B5A54;
+  --teal:#146B66;
+  --teal-deep:#0B403D;
+  --teal-pale:#DCEAE6;
+  --clay:#A6461F;
+  --clay-pale:#F1DED4;
+  --gold:#C7962E;
+  --gold-pale:#F5E9CC;
+  --leaf:#4F7942;
+  --leaf-pale:#E1EBD9;
+  --line:#D8D5C4;
+}
+*{box-sizing:border-box;}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:'Karla',sans-serif;
+  font-size:16px;
+  line-height:1.7;
+}
+h1,h2,h3{font-family:'Fraunces',serif;font-weight:500;margin:0;color:var(--ink);}
+.eyebrow{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:12px;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:var(--teal-deep);
+}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px;}
+a{color:var(--teal-deep);}
+
+/* ---------- HERO ---------- */
+.hero{
+  background:linear-gradient(180deg,var(--teal-deep) 0%, var(--teal) 100%);
+  color:#F3F6F2;
+  padding:64px 0 48px;
+}
+.hero .wrap{max-width:900px;}
+.hero .eyebrow{color:#BFE3DC;}
+.hero h1{font-size:44px;color:#fff;margin:10px 0 14px;line-height:1.15;}
+.hero p.lead{font-size:18px;color:#DCEEE9;max-width:640px;margin:0 0 28px;}
+.obj-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-top:8px;}
+.obj-card{
+  background:rgba(255,255,255,.08);
+  border:0.5px solid rgba(255,255,255,.25);
+  border-radius:12px;
+  padding:16px 18px;
+}
+.obj-card .num{font-family:'IBM Plex Mono',monospace;font-size:12px;color:#BFE3DC;}
+.obj-card p{margin:6px 0 0;font-size:14px;color:#EAF4F0;}
+
+/* ---------- KPPB LEGEND ---------- */
+.kppb{padding:40px 0 10px;}
+.kppb h2{font-size:24px;margin-bottom:6px;}
+.kppb .sub{color:var(--ink-soft);font-size:14.5px;margin-bottom:22px;max-width:680px;}
+.kppb-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;}
+.kppb-card{
+  background:var(--paper);
+  border:0.5px solid var(--line);
+  border-radius:12px;
+  padding:18px 20px;
+  border-top:3px solid var(--tone,var(--teal));
+}
+.kppb-card .code{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--tone,var(--teal));font-weight:500;}
+.kppb-card h3{font-size:17px;margin:4px 0 8px;}
+.kppb-card p{font-size:13.5px;color:var(--ink-soft);margin:0;}
+.kppb-card.c1{--tone:#146B66;}
+.kppb-card.c4{--tone:#A6461F;}
+.kppb-card.c5{--tone:#8C5FBF;}
+.kppb-card.c6{--tone:#C7962E;}
+
+/* ---------- NAV (river path) ---------- */
+.river-nav{
+  position:sticky;top:0;z-index:20;
+  background:rgba(241,242,234,.94);
+  backdrop-filter:blur(6px);
+  border-bottom:0.5px solid var(--line);
+  padding:10px 0;
+}
+.river-nav .wrap{display:flex;align-items:center;gap:4px;overflow-x:auto;}
+.rn-item{
+  display:flex;align-items:center;gap:8px;
+  padding:8px 14px;border-radius:999px;
+  font-size:13.5px;color:var(--ink-soft);white-space:nowrap;cursor:pointer;
+  border:0.5px solid transparent;
+}
+.rn-item .dot{width:8px;height:8px;border-radius:50%;background:var(--line);flex:none;}
+.rn-item.active{background:var(--teal-pale);color:var(--teal-deep);border-color:var(--teal);}
+.rn-item.active .dot{background:var(--teal);}
+.rn-item.visited .dot{background:var(--leaf);}
+.progress-track{height:3px;background:var(--line);border-radius:2px;margin-top:8px;overflow:hidden;}
+.progress-fill{height:100%;background:var(--teal);width:0%;transition:width .4s ease;}
+
+/* ---------- STATIONS ---------- */
+.station{padding:56px 0;border-bottom:0.5px solid var(--line);}
+.station-head{display:flex;align-items:baseline;gap:14px;margin-bottom:8px;}
+.station-head .stno{font-family:'Fraunces',serif;font-size:38px;color:var(--teal-pale);-webkit-text-stroke:1.4px var(--teal);}
+.station h2{font-size:28px;}
+.station .tagline{color:var(--ink-soft);font-size:15px;max-width:640px;margin:8px 0 28px;}
+.tag-row{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 0;}
+.tag{
+  font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.03em;
+  padding:4px 9px;border-radius:6px;background:var(--tag-bg,var(--teal-pale));color:var(--tag-fg,var(--teal-deep));
+}
+
+.passage{
+  background:var(--paper);border:0.5px solid var(--line);border-radius:12px;
+  padding:20px 24px;margin:18px 0 30px;font-size:15px;color:var(--ink-soft);
+}
+.passage strong{color:var(--ink);}
+
+.method{margin-bottom:36px;}
+.method-title{display:flex;align-items:center;gap:10px;margin-bottom:12px;}
+.method-title h3{font-size:19px;}
+.badge-round{
+  width:26px;height:26px;border-radius:50%;background:var(--teal);color:#fff;
+  display:flex;align-items:center;justify-content:center;font-size:12px;font-family:'IBM Plex Mono',monospace;flex:none;
+}
+
+/* accordion (SQ3R) */
+.acc-item{border:0.5px solid var(--line);border-radius:10px;margin-bottom:8px;background:var(--paper);overflow:hidden;}
+.acc-head{padding:13px 16px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;font-size:14.5px;font-weight:500;}
+.acc-head span.arrow{transition:transform .2s;color:var(--teal);}
+.acc-item.open .arrow{transform:rotate(180deg);}
+.acc-body{max-height:0;overflow:hidden;transition:max-height .3s ease;}
+.acc-item.open .acc-body{max-height:300px;}
+.acc-body-in{padding:0 16px 16px;font-size:14px;color:var(--ink-soft);}
+.acc-body-in textarea{width:100%;margin-top:8px;}
+
+textarea,input[type=text]{
+  font-family:'Karla',sans-serif;font-size:14px;border:0.5px solid var(--line);
+  border-radius:8px;padding:9px 11px;background:#fff;color:var(--ink);width:100%;
+}
+textarea{min-height:56px;resize:vertical;}
+button.btn{
+  font-family:'Karla',sans-serif;font-size:13.5px;font-weight:500;
+  border:0.5px solid var(--teal);background:#fff;color:var(--teal-deep);
+  border-radius:8px;padding:8px 14px;cursor:pointer;
+}
+button.btn:hover{background:var(--teal-pale);}
+button.btn.solid{background:var(--teal);color:#fff;}
+button.btn.solid:hover{background:var(--teal-deep);}
+
+/* skim exercise */
+.skim-box{background:var(--paper);border:0.5px solid var(--line);border-radius:12px;padding:20px;}
+.skim-text{font-size:14.5px;line-height:2;color:var(--ink-soft);}
+.skim-text mark{background:var(--gold-pale);color:var(--ink);padding:1px 2px;border-radius:3px;}
+.skim-controls{display:flex;gap:10px;align-items:center;margin-top:12px;flex-wrap:wrap;}
+.skim-result{font-size:13.5px;color:var(--teal-deep);font-family:'IBM Plex Mono',monospace;}
+
+/* note grid */
+.note-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:20px;}
+.note-card{background:var(--paper);border:0.5px solid var(--line);border-radius:12px;padding:20px;}
+.note-card h4{font-size:15px;margin:0 0 10px;display:flex;align-items:center;gap:8px;}
+
+/* mind map */
+.mindmap{display:flex;flex-direction:column;align-items:center;gap:10px;}
+.mm-center{
+  background:var(--teal);color:#fff;padding:12px 20px;border-radius:10px;font-size:14px;font-weight:500;text-align:center;
+}
+.mm-branches{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px;width:100%;}
+.mm-branch{
+  background:var(--teal-pale);color:var(--teal-deep);border-radius:8px;padding:9px 10px;font-size:12.5px;text-align:center;cursor:pointer;
+  border:0.5px solid transparent;
+}
+.mm-branch.open{background:#fff;border-color:var(--teal);}
+.mm-detail{font-size:12.5px;color:var(--ink-soft);background:#fff;border:0.5px dashed var(--line);border-radius:8px;padding:8px 10px;margin-top:4px;display:none;}
+.mm-detail.show{display:block;}
+
+/* cornell */
+.cornell{display:grid;grid-template-columns:1fr 1.6fr;gap:0;border:0.5px solid var(--line);border-radius:10px;overflow:hidden;}
+.cornell .cue{background:var(--gold-pale);padding:12px;font-size:13px;}
+.cornell .notes{padding:12px;background:#fff;}
+.cornell .summary{grid-column:1/-1;background:var(--teal-pale);padding:12px;border-top:0.5px solid var(--line);}
+.cornell label{font-size:11.5px;font-family:'IBM Plex Mono',monospace;color:var(--ink-soft);display:block;margin-bottom:6px;}
+
+/* concept map */
+.cm-svg-wrap{display:flex;justify-content:center;}
+.cm-node{cursor:pointer;}
+.cm-caption{font-size:13px;color:var(--ink-soft);text-align:center;margin-top:10px;min-height:20px;}
+
+/* critical thinking worksheet */
+.ct-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;}
+.ct-card{background:var(--paper);border:0.5px solid var(--line);border-radius:12px;padding:16px;border-left:3px solid var(--clay);}
+.ct-card .step-label{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--clay);text-transform:uppercase;}
+.ct-card h4{font-size:14.5px;margin:4px 0 8px;}
+.ct-card p.q{font-size:13px;color:var(--ink-soft);margin:0 0 8px;}
+
+/* scamper */
+.scamper-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;}
+.scamper-card{background:var(--paper);border:0.5px solid var(--line);border-radius:12px;padding:14px;border-top:3px solid var(--leaf);}
+.scamper-card .letter{font-family:'Fraunces',serif;font-size:22px;color:var(--leaf);}
+.scamper-card .word{font-size:12.5px;color:var(--ink-soft);margin-bottom:8px;}
+
+/* bubble map */
+.bubble-wrap{display:flex;flex-direction:column;align-items:center;gap:16px;}
+.bubble-center{
+  width:150px;height:150px;border-radius:50%;background:var(--clay);color:#fff;
+  display:flex;align-items:center;justify-content:center;text-align:center;font-size:13.5px;font-weight:500;padding:10px;
+}
+.bubble-ring{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;max-width:640px;}
+.bubble{
+  background:var(--clay-pale);color:var(--clay);border-radius:50%;
+  width:100px;height:100px;display:flex;align-items:center;justify-content:center;text-align:center;font-size:12px;padding:8px;position:relative;
+}
+.bubble .rm{position:absolute;top:2px;right:8px;font-size:11px;cursor:pointer;color:var(--clay);}
+.bubble-add{display:flex;gap:8px;justify-content:center;margin-top:6px;}
+.bubble-add input{max-width:220px;}
+
+/* flow map */
+.flow-list{display:flex;flex-direction:column;gap:0;max-width:560px;margin:0 auto;}
+.flow-step{
+  display:flex;align-items:center;gap:12px;background:var(--paper);border:0.5px solid var(--line);
+  border-radius:10px;padding:12px 14px;position:relative;
+}
+.flow-step + .flow-step{margin-top:22px;}
+.flow-step + .flow-step::before{
+  content:'';position:absolute;top:-22px;left:24px;width:2px;height:22px;background:var(--teal);
+}
+.flow-num{
+  width:26px;height:26px;border-radius:50%;background:var(--teal);color:#fff;flex:none;
+  display:flex;align-items:center;justify-content:center;font-size:12px;font-family:'IBM Plex Mono',monospace;
+}
+.flow-step input{flex:1;}
+.flow-step .mv{display:flex;gap:4px;}
+.flow-step .mv span{cursor:pointer;color:var(--ink-soft);font-size:13px;padding:2px 5px;}
+.flow-add{text-align:center;margin-top:16px;}
+
+/* reflection */
+.refl-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-bottom:24px;}
+.refl-card{background:var(--paper);border:0.5px solid var(--line);border-radius:12px;padding:16px;}
+.refl-card .code{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--teal-deep);}
+.refl-card h4{font-size:14.5px;margin:4px 0 10px;}
+.scale{display:flex;gap:6px;}
+.scale label{
+  flex:1;text-align:center;font-size:11.5px;color:var(--ink-soft);border:0.5px solid var(--line);
+  border-radius:6px;padding:6px 0;cursor:pointer;
+}
+.scale input{display:none;}
+.scale input:checked + span{}
+.scale label.sel{background:var(--teal);color:#fff;border-color:var(--teal);}
+.refl-summary{
+  background:var(--teal-deep);color:#EAF4F0;border-radius:12px;padding:20px 22px;font-size:14px;
+}
+.refl-summary .big{font-family:'Fraunces',serif;font-size:26px;color:#fff;margin-bottom:4px;}
+
+footer{padding:30px 0 50px;text-align:center;color:var(--ink-soft);font-size:13px;}
+
+@media (max-width:720px){
+  .hero h1{font-size:32px;}
+  .cornell{grid-template-columns:1fr;}
+}
+
+</style>
+</head>
+<body>
+
+<nav class="river-nav">
+  <div class="wrap" style="display:flex;gap:4px;overflow-x:auto;">
+    <a class="rn-item" href="index.html" style="text-decoration:none;"><span class="dot"></span>Mula</a><a class="rn-item active" href="bacaan.html" style="text-decoration:none;"><span class="dot"></span>1. Bacaan</a><a class="rn-item" href="nota.html" style="text-decoration:none;"><span class="dot"></span>2. Membuat nota</a><a class="rn-item" href="berfikir.html" style="text-decoration:none;"><span class="dot"></span>3. Berfikir</a><a class="rn-item" href="alat-berfikir.html" style="text-decoration:none;"><span class="dot"></span>4. Alat berfikir</a><a class="rn-item" href="refleksi.html" style="text-decoration:none;"><span class="dot"></span>5. Refleksi</a>
+  </div>
+</nav>
+
+<div class="station" style="border-bottom:none;">
+  <div class="wrap">
+
+  <div class="wrap">
+    <div class="station-head"><span class="stno">01</span><h2>Kemahiran membaca</h2></div>
+    <p class="tagline">Mulakan perjalanan dengan memahami isu pencemaran sungai melalui dua kaedah membaca yang berbeza tujuannya: SQ3R untuk membaca secara mendalam, dan Imbasan &amp; Susur untuk mencari maklumat khusus dengan pantas.</p>
+
+    <div class="passage">
+      <strong>Petikan bacaan &mdash; Pencemaran Sungai di Malaysia</strong><br><br>
+      Sungai merupakan sumber air utama bagi kegunaan domestik, pertanian dan industri di Malaysia. Walau bagaimanapun, aktiviti perindustrian yang tidak terkawal, pelupusan sisa domestik secara haram, serta hakisan tanah akibat pembangunan telah menyebabkan banyak sungai mengalami pencemaran yang serius. Sungai yang tercemar bukan sahaja menjejaskan ekosistem akuatik, malah turut mengganggu bekalan air bersih kepada penduduk sekitar. Pihak berkuasa tempatan dan agensi alam sekitar kini menggalakkan penglibatan komuniti dalam usaha pemantauan kualiti air serta gotong-royong membersihkan kawasan tebing sungai sebagai langkah pencegahan jangka panjang.
+    </div>
+
+    <div class="method">
+      <div class="method-title"><div class="badge-round">A</div><h3>SQ3R</h3><span class="tag" style="--tag-bg:var(--teal-pale);--tag-fg:var(--teal-deep)">C4 &middot; Komunikasi</span></div>
+      <div id="sq3r">
+        <div class="acc-item">
+          <div class="acc-head">Survey &mdash; Tinjau petikan secara keseluruhan<span class="arrow">&#9662;</span></div>
+          <div class="acc-body"><div class="acc-body-in">Baca tajuk dan ayat pertama setiap perenggan sahaja. Apakah gambaran kasar tentang kandungan petikan ini?<textarea placeholder="Tulis tinjauan awal anda di sini..."></textarea></div></div>
+        </div>
+        <div class="acc-item">
+          <div class="acc-head">Question &mdash; Bina soalan daripada tajuk<span class="arrow">&#9662;</span></div>
+          <div class="acc-body"><div class="acc-body-in">Contoh: "Apakah punca utama pencemaran sungai?" Bina satu soalan lain yang ingin anda jawab.<textarea placeholder="Soalan saya..."></textarea></div></div>
+        </div>
+        <div class="acc-item">
+          <div class="acc-head">Read &mdash; Baca dengan teliti untuk cari jawapan<span class="arrow">&#9662;</span></div>
+          <div class="acc-body"><div class="acc-body-in">Baca semula petikan di atas sepenuhnya sambil mencari jawapan kepada soalan yang dibina.</div></div>
+        </div>
+        <div class="acc-item">
+          <div class="acc-head">Recite &mdash; Sebut semula dengan ayat sendiri<span class="arrow">&#9662;</span></div>
+          <div class="acc-body"><div class="acc-body-in">Tanpa merujuk petikan, nyatakan semula jawapan anda menggunakan ayat sendiri.<textarea placeholder="Jawapan dalam ayat sendiri..."></textarea></div></div>
+        </div>
+        <div class="acc-item">
+          <div class="acc-head">Review &mdash; Semak kefahaman keseluruhan<span class="arrow">&#9662;</span></div>
+          <div class="acc-body"><div class="acc-body-in">Semak semula nota anda. Adakah terdapat maklumat penting yang tertinggal?</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="method">
+      <div class="method-title"><div class="badge-round">B</div><h3>Imbasan &amp; Susur (Skimming &amp; Scanning)</h3><span class="tag" style="--tag-bg:var(--teal-pale);--tag-fg:var(--teal-deep)">C4 &middot; Komunikasi</span></div>
+      <div class="skim-box">
+        <p style="font-size:13.5px;color:var(--ink-soft);margin-top:0;">Klik butang di bawah untuk <em>mengimbas</em> (scan) petikan dan menyerlahkan setiap kali perkataan <strong>"sungai"</strong> muncul &mdash; teknik ini berguna apabila anda perlu mencari maklumat khusus dengan pantas tanpa membaca keseluruhan teks.</p>
+        <div class="skim-text" id="skimText"></div>
+        <div class="skim-controls">
+          <button class="btn solid" onclick="runScan()">Imbas kata kunci "sungai"</button>
+          <span class="skim-result" id="skimResult"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  </div>
+</div>
+<footer>Modul Pembelajaran Interaktif &middot; Tugasan 2 &mdash; KPPB &middot; Dihasilkan untuk pembelajaran aktif berpusatkan pelajar</footer>
+<script>
+
+document.querySelectorAll('#sq3r .acc-head').forEach(h=>{
+  h.addEventListener('click',()=>h.parentElement.classList.toggle('open'));
+});
+
+
+const skimSource="Sungai merupakan sumber air utama bagi kegunaan domestik, pertanian dan industri di Malaysia. Aktiviti perindustrian yang tidak terkawal turut mencemarkan sungai. Sungai yang tercemar menjejaskan ekosistem akuatik dan mengganggu bekalan air bersih. Usaha membersihkan sungai memerlukan penglibatan komuniti setempat.";
+document.getElementById('skimText').textContent=skimSource;
+function runScan(){
+  const el=document.getElementById('skimText');
+  const re=/sungai/gi;
+  const count=(skimSource.match(re)||[]).length;
+  el.innerHTML=skimSource.replace(re,m=>'<mark>'+m+'</mark>');
+  document.getElementById('skimResult').textContent='Ditemui '+count+' kali dalam petikan.';
+}
+
+
+</script>
+</body>
+</html>
